@@ -40,4 +40,12 @@ public class Contact {
     public int hashCode() {
         return Objects.hash(contactName, phoneNumber);
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "contactName='" + contactName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }
