@@ -1,9 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import exceptions.ContactAlreadyExistsException;
+
+import java.util.*;
 
 public class TeleBook {
     private Map<String, Contact> contacts;
@@ -21,11 +20,29 @@ public class TeleBook {
     }
 
     public void addContact(Contact contact) {
+        if (contact.getContactName() == null || contact.getPhoneNumber() == null) {
+            throw new NullPointerException("Conact name and number cannot be null");
+        }
+
+        if (contact.getContactName().isEmpty() || contact.getPhoneNumber().isEmpty()) {
+            throw new IllegalArgumentException("Conact name and number cannot be empty");
+        }
+
+        if (contacts.containsKey(contact.getContactName())) {
+            throw new ContactAlreadyExistsException("Contact : " + contact.getContactName() + " already" +
+                    "exists in telebook");
+        }
+
         contacts.put(contact.getContactName(), contact);
     }
 
-    public Contact removeContact(String contactName) {
-         return contacts.remove(contactName);
+    public boolean removeContact(String contactName) {
+        if (contacts.containsKey(contactName)) {
+            contacts.remove(contactName);
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public List<Contact> findAllContactsByName(String contactName) {
