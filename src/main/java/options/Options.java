@@ -25,7 +25,8 @@ public enum Options {
         }
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return value + "-" + description;
+    }
 }
